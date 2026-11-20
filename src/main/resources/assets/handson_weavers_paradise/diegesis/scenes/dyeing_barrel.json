@@ -140,9 +140,9 @@
       "$comment": "What the dye will make, shown see-through over the barrel; it cannot be taken: stirring dyes the clothing in the bath.",
       "id": "dyed",
       "pos": [
-        8,
-        17.6,
-        8
+        -4.5,
+        13.5,
+        6
       ],
       "pickable": false,
       "hidden": true
