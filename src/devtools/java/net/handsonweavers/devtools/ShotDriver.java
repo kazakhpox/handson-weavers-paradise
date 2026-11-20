@@ -132,7 +132,45 @@ public final class ShotDriver {
                     net.handsonweavers.station.WeaverStations.CLOTH) + " " + view.state().getOutput(
                     net.handsonweavers.station.WeaverStations.CLOTH).getComponentsPatch()));
         });
+        then("leave loom", 40, ShotDriver::leave);
+
+        // The dyeing barrel: a cotton shirt and a bottle of red dye.
+        then("stand at barrel", 20, () -> standBefore(BARREL));
+        then("fill barrel", 10, () -> fill(BARREL, spool("shirt_cotton", 1), 0, redDye(), 4));
+        then("aim barrel", 5, () -> lookAt(BARREL));
+        then("open barrel", 70, ShotDriver::use);
+        then("barrel shot", 5, () -> shot("08_barrel"));
+        then("aim stir", 5, () -> aimAt(4.0F, 18.0F, 12.0F));
+        then("press stir", 3, () -> button(GLFW.GLFW_PRESS));
+        for (int i = 0; i < 12; i++) {
+            float angle = i * 0.6F;
+            then("stir " + i, 2, () -> aimAt(8.0F + 3.5F * (float) Math.cos(angle), 14.7F, 8.0F + 3.5F * (float) Math.sin(angle)));
+        }
+        then("stir shot", 1, () -> shot("09_stirring"));
+        then("release stir", 20, () -> button(GLFW.GLFW_RELEASE));
         then("quit", 5, () -> Minecraft.getInstance().stop());
+    }
+
+    private static final BlockPos BARREL = new BlockPos(6, -60, 0);
+
+    private static ItemStack redDye() {
+        ItemStack dye = spool("bottled_dye", 1);
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("colorRedOne", 200);
+        tag.putInt("colorGreenOne", 40);
+        tag.putInt("colorBlueOne", 60);
+        tag.putInt("colorRedTwo", 255);
+        tag.putInt("colorGreenTwo", 255);
+        tag.putInt("colorBlueTwo", 255);
+        tag.putString("dyeType", "default");
+        tag.putInt("amount", 10);
+        dye.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
+        return dye;
+    }
+
+    private static void button(int action) {
+        long window = Minecraft.getInstance().getWindow().getWindow();
+        invoke("onPress", new Class<?>[]{long.class, int.class, int.class, int.class}, window, 0, action, 0);
     }
 
     private static ItemStack spool(String name, int count) {

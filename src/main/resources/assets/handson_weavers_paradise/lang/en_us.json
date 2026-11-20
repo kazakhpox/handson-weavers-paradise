@@ -13,5 +13,8 @@
   "handson_weavers_paradise.loom.shuttle": "Shuttle: start weaving",
   "handson_weavers_paradise.loom.rows": "Rows: %s   %s:%s",
   "handson_weavers_paradise.loom.woven": "Woven! %s rows",
-  "handson_weavers_paradise.loom.take": "Take the %s (quality %s) beside the loom"
+  "handson_weavers_paradise.loom.take": "Take the %s (quality %s) beside the loom",
+  "handson_weavers_paradise.barrel.clothing": "Drop clothing into the dye bath",
+  "handson_weavers_paradise.barrel.dye": "Stand bottled dye on the rim: left for the front, right for the back",
+  "handson_weavers_paradise.barrel.take": "Take the dyed clothing"
 }

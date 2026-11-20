@@ -5,9 +5,9 @@ An addon for [Weavers Paradise](https://modrinth.com/mod/weavers-paradise) on **
 [Hands-On Delight](https://github.com/Pocky-l/handson-delight): the stations of Weavers Paradise open **right in the
 world**, with no menu screen.
 
-| Spinning jenny | Clothcrafting station | Dyemaking table |
-|---|---|---|
-| ![The spinning jenny](docs/jenny.png) | ![Weaving at the loom](docs/loom.png) | ![The dyemaking table](docs/dyemaking.png) |
+| Spinning jenny | Clothcrafting station | Dyemaking table | Dyeing barrel |
+|---|---|---|---|
+| ![The spinning jenny](docs/jenny.png) | ![Weaving at the loom](docs/loom.png) | ![The dyemaking table](docs/dyemaking.png) | ![The dyeing barrel](docs/barrel.png) |
 
 - **Spinning jenny.** The fibre lies on the jenny, the six spools stand in a row behind it. While it spins, the spool being
   wound turns, a thread runs to it from the fibre, lint drifts off, and a strip over the jenny fills with the spool.
@@ -23,7 +23,11 @@ world**, with no menu screen.
   spins, the clock of a weaving runs, hoppers reach them). Sneaking + use keeps the mod's own screens. The mod adds no
   blocks or items.
 
-The dyeing barrel keeps its own screen for now.
+- **Dyeing barrel**, worked as the cooking pot of Hands-On Delight. Drop the clothing into the bath and it floats there;
+  stand bottled dye on the rim (the left for the front side, the right for the back of double-sided clothing) and the bath
+  takes its colour; hang the stencils on the barrel's front. Take the paddle by its handle and stir: the dye swirls round
+  after it. The dyed clothing rises over the barrel, dripping, and taking it uses a dose of each dye, as the mod's screen
+  does.
 
 ## Requirements
 
@@ -47,7 +51,7 @@ screenshots to `shots/`; it runs headless under `xvfb-run` too.
 
 ## How it works
 
-- `station/WeaverStations` declares the three Diegesis stations, their slot groups bound to the blocks' own slots.
+- `station/WeaverStations` declares the four Diegesis stations, their slot groups bound to the blocks' own slots.
 - `station/LoomLogic` starts a weaving as the mod's start button does and counts each row, checked against the row the
   weaving's seed makes (`station/WeavingRows`); the block's own clock then weaves the cloth from the points.
 - `client/*Behavior` draw the boards, bars, threads and pedals, and take the arrow keys while weaving.

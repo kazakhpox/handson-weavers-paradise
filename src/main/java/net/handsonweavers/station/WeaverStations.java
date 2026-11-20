@@ -14,6 +14,7 @@ import com.pockyl.diegesis.api.Diegesis;
 import com.pockyl.diegesis.api.state.SlotRef;
 import com.pockyl.diegesis.api.state.SlotRules;
 import com.pockyl.diegesis.api.state.StationSchema;
+import com.pockyl.diegesis.api.state.TankSpec;
 import com.pockyl.diegesis.api.station.StationType;
 
 import net.handsonweavers.HandsOnWeavers;
@@ -90,6 +91,30 @@ public final class WeaverStations {
             .output(CLOTH)
             .build();
 
+    // ---- Dyeing barrel: clothing 0, the dyed clothing 1, stencils 2 (front) and 3 (back), dyes 4-5 (front) and 6-7 (back).
+    public static final ResourceLocation BARREL_ID = HandsOnWeavers.id("dyeing_barrel");
+    public static final String CLOTHING = "clothing";
+    public static final String DYED = "dyed";
+    public static final String STENCILS = "stencils";
+    public static final String FRONT_DYES = "front_dyes";
+    public static final String BACK_DYES = "back_dyes";
+    /** The dye bath the clothing floats in: water, coloured by the client with the dyes put in. */
+    public static final String BATH = "bath";
+    public static final SlotRef CLOTHING_SLOT = SlotRef.of(CLOTHING, 0);
+    public static final SlotRef DYED_SLOT = SlotRef.of(DYED, 0);
+    public static final ResourceLocation EFFECT_DYED = HandsOnWeavers.id("dyed");
+
+    public static final StationSchema BARREL_SCHEMA = StationSchema.builder()
+            .slots(CLOTHING, 1, SlotRules.DEFAULT.kept().maxStack(1))
+            .slots(DYED, 1, SlotRules.DEFAULT.kept().accepts(stack -> false))
+            .slots(STENCILS, 2, SlotRules.DEFAULT.kept().maxStack(1))
+            .slots(FRONT_DYES, 2, SlotRules.DEFAULT.kept().maxStack(1)
+                    .accepts(stack -> stack.is(WeaversParadiseItems.BOTTLED_DYE.get())))
+            .slots(BACK_DYES, 2, SlotRules.DEFAULT.kept().maxStack(1)
+                    .accepts(stack -> stack.is(WeaversParadiseItems.BOTTLED_DYE.get())))
+            .tank(BATH, TankSpec.of(1000).filledWith(ResourceLocation.withDefaultNamespace("water"), 1000))
+            .build();
+
     public static final StationType JENNY = Diegesis.station(JENNY_ID)
             .block(WeaversParadiseBlocks.SPINNING_JENNY)
             .schema(JENNY_SCHEMA)
@@ -111,6 +136,14 @@ public final class WeaverStations {
             .openWhen(WeaverStations::opens)
             .build();
 
+    public static final StationType BARREL = Diegesis.station(BARREL_ID)
+            .block(WeaversParadiseBlocks.DYEING_BARREL_BLOCK)
+            .schema(BARREL_SCHEMA)
+            .logic(BarrelLogic::new)
+            .openWhen(WeaverStations::opens)
+            .orientation(StationType.Orientation.PLAYER)
+            .build();
+
     private WeaverStations() {
     }
 
@@ -118,6 +151,7 @@ public final class WeaverStations {
         Diegesis.register(JENNY);
         Diegesis.register(DYEMAKING);
         Diegesis.register(LOOM);
+        Diegesis.register(BARREL);
     }
 
     public static boolean isDye(ItemStack stack) {

@@ -13,5 +13,8 @@
   "handson_weavers_paradise.loom.shuttle": "Челнок: начать ткать",
   "handson_weavers_paradise.loom.rows": "Рядов: %s   %s:%s",
   "handson_weavers_paradise.loom.woven": "Соткано! Рядов: %s",
-  "handson_weavers_paradise.loom.take": "Заберите %s (качество %s) рядом со станком"
+  "handson_weavers_paradise.loom.take": "Заберите %s (качество %s) рядом со станком",
+  "handson_weavers_paradise.barrel.clothing": "Опустите одежду в красильную ванну",
+  "handson_weavers_paradise.barrel.dye": "Поставьте краску на обод: слева — лицо, справа — изнанка",
+  "handson_weavers_paradise.barrel.take": "Заберите окрашенную вещь"
 }

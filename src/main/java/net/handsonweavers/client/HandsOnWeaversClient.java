@@ -22,8 +22,9 @@ public final class HandsOnWeaversClient {
         DiegesisClient.registerBehavior(WeaverStations.JENNY_ID, JennyBehavior::new);
         DiegesisClient.registerBehavior(WeaverStations.DYEMAKING_ID, DyemakingBehavior::new);
         DiegesisClient.registerBehavior(WeaverStations.LOOM_ID, LoomBehavior::new);
+        DiegesisClient.registerBehavior(WeaverStations.BARREL_ID, BarrelBehavior::new);
         for (ResourceLocation effect : new ResourceLocation[]{WeaverStations.EFFECT_ROW, WeaverStations.EFFECT_WOVEN,
-                WeaverStations.EFFECT_REFUSED}) {
+                WeaverStations.EFFECT_REFUSED, WeaverStations.EFFECT_DYED}) {
             DiegesisClient.registerEffect(effect, (view, node, data) -> {
             });
         }
