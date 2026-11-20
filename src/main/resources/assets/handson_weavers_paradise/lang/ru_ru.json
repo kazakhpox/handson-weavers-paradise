@@ -1,0 +1,17 @@
+{
+  "handson_weavers_paradise.jenny.spinning": "Прядётся… %s%%",
+  "handson_weavers_paradise.jenny.need_fibre": "Положите волокно: нить, хлопок или шерсть",
+  "handson_weavers_paradise.jenny.need_spool": "Поставьте пустые катушки",
+  "handson_weavers_paradise.jenny.need_more": "Волокна мало для катушки",
+  "handson_weavers_paradise.dye.hint": "Красители на полку, бутылку и воду спереди",
+  "handson_weavers_paradise.loom.hint_start": "Положите катушки на станок и нажмите на челнок",
+  "handson_weavers_paradise.loom.hint_spools": "Положите катушки на станок",
+  "handson_weavers_paradise.loom.ready": "Катушки: %s / %s · нажмите на челнок",
+  "handson_weavers_paradise.loom.need_spools": "Эти катушки нельзя соткать",
+  "handson_weavers_paradise.loom.need_count": "Для ткани нужно %s катушек",
+  "handson_weavers_paradise.loom.take_first": "Сначала заберите сотканную ткань",
+  "handson_weavers_paradise.loom.shuttle": "Челнок: начать ткать",
+  "handson_weavers_paradise.loom.rows": "Рядов: %s   %s:%s",
+  "handson_weavers_paradise.loom.woven": "Соткано! Рядов: %s",
+  "handson_weavers_paradise.loom.take": "Заберите %s (качество %s) рядом со станком"
+}

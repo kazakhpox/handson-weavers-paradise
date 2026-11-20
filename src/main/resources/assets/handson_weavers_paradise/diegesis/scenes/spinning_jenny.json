@@ -1,0 +1,205 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Pocky-l/diegesis/main/docs/schema/scene.schema.json",
+  "$comment": "Weavers Paradise's spinning jenny (block facing north, front at -Z, about 12 pixels high). The fibre lies at the front of its top, the six spools stand in a row behind it; the spool being wound turns, a thread runs to it, and the strip over the jenny fills as it winds.",
+  "work_plane": 12.6,
+  "idle_visible": false,
+  "camera": {
+    "position": [
+      8,
+      31,
+      -15
+    ],
+    "target": [
+      8,
+      13.5,
+      7
+    ],
+    "fov": 40
+  },
+  "interface": {
+    "hide_player": true,
+    "inventory_panel": false
+  },
+  "inventory_drawer": {
+    "side": "bottom",
+    "style": "minimal",
+    "always_open": true,
+    "compact": true,
+    "background": "#00000000",
+    "slot_color": "#8C1E140C",
+    "carry_size": 3
+  },
+  "nodes": [
+    {
+      "id": "fibre",
+      "pos": [
+        8,
+        12.6,
+        4.2
+      ],
+      "slot": {
+        "slot": "fibre[0]",
+        "size": 3.6,
+        "item_size": 3.4,
+        "counts": "always",
+        "count_facing": "front",
+        "ghost": [
+          "minecraft:string",
+          "#c:strings",
+          "weaversparadise:raw_cotton",
+          "#minecraft:wool"
+        ],
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "spool_0",
+      "pos": [
+        12.6,
+        12.6,
+        9.5
+      ],
+      "slot": {
+        "slot": "spools[0]",
+        "display": "upright",
+        "size": 2.3,
+        "item_size": 2.6,
+        "counts": "never",
+        "ghost": [
+          "weaversparadise:empty_spool"
+        ],
+        "ghost_alpha": 0.3,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "spool_1",
+      "pos": [
+        10.8,
+        12.6,
+        9.5
+      ],
+      "slot": {
+        "slot": "spools[1]",
+        "display": "upright",
+        "size": 2.3,
+        "item_size": 2.6,
+        "counts": "never",
+        "ghost": [
+          "weaversparadise:empty_spool"
+        ],
+        "ghost_alpha": 0.3,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "spool_2",
+      "pos": [
+        9.0,
+        12.6,
+        9.5
+      ],
+      "slot": {
+        "slot": "spools[2]",
+        "display": "upright",
+        "size": 2.3,
+        "item_size": 2.6,
+        "counts": "never",
+        "ghost": [
+          "weaversparadise:empty_spool"
+        ],
+        "ghost_alpha": 0.3,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "spool_3",
+      "pos": [
+        7.2,
+        12.6,
+        9.5
+      ],
+      "slot": {
+        "slot": "spools[3]",
+        "display": "upright",
+        "size": 2.3,
+        "item_size": 2.6,
+        "counts": "never",
+        "ghost": [
+          "weaversparadise:empty_spool"
+        ],
+        "ghost_alpha": 0.3,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "spool_4",
+      "pos": [
+        5.4,
+        12.6,
+        9.5
+      ],
+      "slot": {
+        "slot": "spools[4]",
+        "display": "upright",
+        "size": 2.3,
+        "item_size": 2.6,
+        "counts": "never",
+        "ghost": [
+          "weaversparadise:empty_spool"
+        ],
+        "ghost_alpha": 0.3,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "spool_5",
+      "pos": [
+        3.6,
+        12.6,
+        9.5
+      ],
+      "slot": {
+        "slot": "spools[5]",
+        "display": "upright",
+        "size": 2.3,
+        "item_size": 2.6,
+        "counts": "never",
+        "ghost": [
+          "weaversparadise:empty_spool"
+        ],
+        "ghost_alpha": 0.3,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "thread",
+      "pos": [
+        0,
+        0,
+        0
+      ],
+      "pickable": false,
+      "hidden": true
+    },
+    {
+      "id": "bar",
+      "pos": [
+        8,
+        17.6,
+        9
+      ],
+      "pickable": false,
+      "hidden": true
+    },
+    {
+      "id": "label",
+      "pos": [
+        8,
+        19.6,
+        9
+      ],
+      "pickable": false
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+version = "${mod_version}+${minecraft_version}"
+group = mod_group_id
+
+base {
+    archivesName = "${mod_id}-neoforge"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    mavenCentral()
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'Modrinth'
+                url = 'https://api.modrinth.com/maven'
+            }
+        }
+        filter { includeGroup('maven.modrinth') }
+    }
+}
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            gameDirectory = project.file('run-server')
+            programArgument '--nogui'
+        }
+        gameTestServer {
+            type = 'gameTestServer'
+            gameDirectory = project.file('run/gametest')
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+dependencies {
+    // Both are NeoForge mods published in Mojang names: they run in dev as they are.
+    implementation "maven.modrinth:weavers-paradise:${weavers_paradise_version}"
+    implementation "maven.modrinth:vortylib:${vortylib_version}"
+    implementation "maven.modrinth:curios:${curios_version}"
+    implementation "maven.modrinth:diegesis-api:${diegesis_version}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    var replaceProperties = [
+            minecraft_version       : minecraft_version,
+            minecraft_version_range : minecraft_version_range,
+            neo_version             : neo_version,
+            loader_version_range    : loader_version_range,
+            mod_id                  : mod_id,
+            mod_name                : mod_name,
+            mod_license             : mod_license,
+            mod_version             : mod_version,
+            mod_authors             : mod_authors,
+            mod_description         : mod_description,
+            weavers_paradise_version_range: weavers_paradise_version_range,
+            diegesis_version_range  : diegesis_version_range,
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from 'src/main/templates'
+    into 'build/generated/sources/modMetadata'
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.named('jar', Jar) {
+    from('LICENSE') {
+        rename { "LICENSE_${mod_id}" }
+    }
+}
+
+// Dev only, never in the jar: a client run ("shots") that builds a test world, works the anvil with the mouse and saves screenshots
+// to shots/, so the station can be looked at without playing by hand.
+sourceSets {
+    devtools {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+configurations {
+    devtoolsImplementation.extendsFrom implementation
+}
+neoForge.addModdingDependenciesTo(sourceSets.devtools)
+neoForge.mods.register('handson_weavers_paradise_devtools') { sourceSet(sourceSets.devtools) }
+neoForge.runs.register('shots') {
+    client()
+    sourceSet = sourceSets.devtools
+    gameDirectory = project.file('run-shots')
+    systemProperty 'handson.shots', project.file('shots').absolutePath
+    programArguments.addAll('--width', '1280', '--height', '720')
+}

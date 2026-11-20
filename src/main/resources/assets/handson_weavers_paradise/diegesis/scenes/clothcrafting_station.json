@@ -1,0 +1,242 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Pocky-l/diegesis/main/docs/schema/scene.schema.json",
+  "$comment": "Weavers Paradise's clothcrafting station (block facing north; a low loom, 8.5 pixels high, its cloth running from the front bar down to the roll at the back). The spools lie on the front bar, the shuttle beside them starts the weaving. While weaving, the board over the loom shows the rows of arrows (RowBoard in LoomBehavior), the four pedals under it can be clicked as the arrow keys, and the cloth on the loom grows with every row.",
+  "work_plane": 6.4,
+  "idle_visible": false,
+  "camera": {
+    "position": [
+      8,
+      28,
+      -21
+    ],
+    "target": [
+      8,
+      15,
+      8
+    ],
+    "fov": 48
+  },
+  "interface": {
+    "hide_player": true,
+    "inventory_panel": false
+  },
+  "inventory_drawer": {
+    "side": "bottom",
+    "style": "minimal",
+    "always_open": true,
+    "compact": true,
+    "background": "#00000000",
+    "slot_color": "#8C1E140C",
+    "carry_size": 3
+  },
+  "nodes": [
+    {
+      "id": "warp",
+      "pos": [
+        8,
+        6.4,
+        4.2
+      ],
+      "slot": {
+        "slot": "warp[0]",
+        "size": 3.4,
+        "item_size": 3.2,
+        "counts": "always",
+        "count_facing": "front",
+        "ghost": [
+          "weaversparadise:cotton_spool",
+          "weaversparadise:wool_spool",
+          "weaversparadise:silk_spool",
+          "weaversparadise:jeans_spool"
+        ],
+        "ghost_alpha": 0.35,
+        "idle_highlight": 0.3
+      }
+    },
+    {
+      "id": "shuttle",
+      "pos": [
+        11.6,
+        5.2,
+        7.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 0.4,
+      "visual": {
+        "item": "weaversparadise:empty_spool",
+        "anchor": [
+          8,
+          8,
+          8
+        ]
+      },
+      "collider": {
+        "from": [
+          -4,
+          -4,
+          -2
+        ],
+        "to": [
+          4,
+          4,
+          2
+        ]
+      },
+      "tooltip": "handson_weavers_paradise.loom.shuttle"
+    },
+    {
+      "id": "woven",
+      "pos": [
+        8,
+        4.0,
+        9.5
+      ],
+      "rotation": [
+        -62,
+        0,
+        0
+      ],
+      "scale": 0.55,
+      "pickable": false,
+      "hidden": true
+    },
+    {
+      "id": "cloth_out",
+      "pos": [
+        2.2,
+        9.5,
+        3.5
+      ],
+      "output": {
+        "output": "cloth",
+        "size": 4.0,
+        "count_facing": "camera"
+      }
+    },
+    {
+      "id": "cloth_roll",
+      "pos": [
+        8,
+        2,
+        14
+      ],
+      "pickable": false
+    },
+    {
+      "id": "board",
+      "pos": [
+        8,
+        15.2,
+        12.5
+      ],
+      "pickable": false,
+      "hidden": true
+    },
+    {
+      "id": "pad_1",
+      "pos": [
+        12.0,
+        9.9,
+        12.0
+      ],
+      "collider": {
+        "from": [
+          -1.3,
+          -1.3,
+          -0.6
+        ],
+        "to": [
+          1.3,
+          1.3,
+          0.4
+        ]
+      },
+      "hidden": true
+    },
+    {
+      "id": "pad_2",
+      "pos": [
+        9.4,
+        9.9,
+        12.0
+      ],
+      "collider": {
+        "from": [
+          -1.3,
+          -1.3,
+          -0.6
+        ],
+        "to": [
+          1.3,
+          1.3,
+          0.4
+        ]
+      },
+      "hidden": true
+    },
+    {
+      "id": "pad_0",
+      "pos": [
+        6.6,
+        9.9,
+        12.0
+      ],
+      "collider": {
+        "from": [
+          -1.3,
+          -1.3,
+          -0.6
+        ],
+        "to": [
+          1.3,
+          1.3,
+          0.4
+        ]
+      },
+      "hidden": true
+    },
+    {
+      "id": "pad_3",
+      "pos": [
+        4.0,
+        9.9,
+        12.0
+      ],
+      "collider": {
+        "from": [
+          -1.3,
+          -1.3,
+          -0.6
+        ],
+        "to": [
+          1.3,
+          1.3,
+          0.4
+        ]
+      },
+      "hidden": true
+    },
+    {
+      "id": "label",
+      "pos": [
+        8,
+        26.0,
+        12.5
+      ],
+      "pickable": false
+    },
+    {
+      "id": "popup",
+      "pos": [
+        -2.5,
+        13.0,
+        11.5
+      ],
+      "pickable": false
+    }
+  ]
+}

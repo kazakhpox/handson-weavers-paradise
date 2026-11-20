@@ -1,0 +1,17 @@
+{
+  "handson_weavers_paradise.jenny.spinning": "Spinning… %s%%",
+  "handson_weavers_paradise.jenny.need_fibre": "Lay fibre on the jenny: string, cotton or wool",
+  "handson_weavers_paradise.jenny.need_spool": "Stand empty spools behind it",
+  "handson_weavers_paradise.jenny.need_more": "Not enough fibre for a spool",
+  "handson_weavers_paradise.dye.hint": "Dyes in the rack, a bottle and water at the front",
+  "handson_weavers_paradise.loom.hint_start": "Lay the spools on the loom and click the shuttle to weave",
+  "handson_weavers_paradise.loom.hint_spools": "Lay spools on the loom",
+  "handson_weavers_paradise.loom.ready": "Spools: %s / %s · click the shuttle",
+  "handson_weavers_paradise.loom.need_spools": "These spools cannot be woven",
+  "handson_weavers_paradise.loom.need_count": "Weaving takes %s spools",
+  "handson_weavers_paradise.loom.take_first": "Take the woven cloth first",
+  "handson_weavers_paradise.loom.shuttle": "Shuttle: start weaving",
+  "handson_weavers_paradise.loom.rows": "Rows: %s   %s:%s",
+  "handson_weavers_paradise.loom.woven": "Woven! %s rows",
+  "handson_weavers_paradise.loom.take": "Take the %s (quality %s) beside the loom"
+}

@@ -1,0 +1,348 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Pocky-l/diegesis/main/docs/schema/scene.schema.json",
+  "$comment": "Weavers Paradise's dyemaking table (block facing north; its top at 11 pixels with bowls and a pot on it up to 16). The dyes stand in a rack of three by three behind the table, the empty bottle and the base (water or a dye) at the front corners, the dye core in the pot, and the bottled dye hovers over the front of the table.",
+  "work_plane": 11,
+  "idle_visible": false,
+  "camera": {
+    "position": [
+      8,
+      30,
+      -16
+    ],
+    "target": [
+      8,
+      16.5,
+      8
+    ],
+    "fov": 42
+  },
+  "interface": {
+    "hide_player": true,
+    "inventory_panel": false
+  },
+  "inventory_drawer": {
+    "side": "bottom",
+    "style": "minimal",
+    "always_open": true,
+    "compact": true,
+    "background": "#00000000",
+    "slot_color": "#8C1E140C",
+    "carry_size": 3
+  },
+  "nodes": [
+    {
+      "id": "dye_0",
+      "pos": [
+        11.2,
+        20.4,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[0]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_1",
+      "pos": [
+        8.0,
+        20.4,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[1]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_2",
+      "pos": [
+        4.8,
+        20.4,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[2]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_3",
+      "pos": [
+        11.2,
+        17.8,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[3]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_4",
+      "pos": [
+        8.0,
+        17.8,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[4]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_5",
+      "pos": [
+        4.8,
+        17.8,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[5]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_6",
+      "pos": [
+        11.2,
+        15.2,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[6]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_7",
+      "pos": [
+        8.0,
+        15.2,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[7]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "dye_8",
+      "pos": [
+        4.8,
+        15.2,
+        14.6
+      ],
+      "slot": {
+        "slot": "dyes[8]",
+        "display": "upright",
+        "size": 2.6,
+        "item_size": 2.6,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "#weaversparadise:vanilla_dyes"
+        ],
+        "ghost_alpha": 0.22,
+        "idle_highlight": 0.2
+      }
+    },
+    {
+      "id": "rack",
+      "pos": [
+        8,
+        13.6,
+        15.4
+      ],
+      "pickable": false,
+      "visual": {
+        "block": "minecraft:spruce_slab[type=bottom]"
+      },
+      "scale": [
+        0.75,
+        0.12,
+        0.15
+      ]
+    },
+    {
+      "id": "bottle",
+      "pos": [
+        13.2,
+        11.02,
+        1.4
+      ],
+      "slot": {
+        "slot": "bottle[0]",
+        "display": "upright",
+        "size": 3.0,
+        "item_size": 3.2,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "minecraft:glass_bottle"
+        ],
+        "ghost_alpha": 0.35,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "base",
+      "pos": [
+        2.8,
+        11.02,
+        1.4
+      ],
+      "slot": {
+        "slot": "base[0]",
+        "display": "upright",
+        "size": 3.0,
+        "item_size": 3.2,
+        "counts": "hover",
+        "count_facing": "front",
+        "ghost": [
+          "minecraft:potion",
+          "weaversparadise:bottled_dye"
+        ],
+        "ghost_alpha": 0.35,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "core",
+      "pos": [
+        9,
+        14.05,
+        10
+      ],
+      "slot": {
+        "slot": "core[0]",
+        "size": 2.8,
+        "item_size": 2.6,
+        "counts": "never",
+        "ghost": [
+          "weaversparadise:dye_core"
+        ],
+        "ghost_alpha": 0.35,
+        "idle_highlight": 0.25
+      }
+    },
+    {
+      "id": "result",
+      "pos": [
+        8,
+        15.0,
+        3.6
+      ],
+      "slot": {
+        "slot": "result[0]",
+        "display": "floating",
+        "size": 4.0,
+        "item_size": 3.8,
+        "counts": "hover",
+        "count_facing": "camera"
+      }
+    },
+    {
+      "id": "pot",
+      "pos": [
+        9,
+        14.2,
+        10
+      ],
+      "pickable": false,
+      "emitter": {
+        "particle": "diegesis:steam",
+        "rate": 3,
+        "velocity": [
+          0,
+          4,
+          0
+        ],
+        "spread": 1.2,
+        "enabled": false,
+        "scale": 0.8
+      }
+    },
+    {
+      "id": "label",
+      "pos": [
+        8,
+        23.4,
+        14.6
+      ],
+      "pickable": false
+    }
+  ]
+}

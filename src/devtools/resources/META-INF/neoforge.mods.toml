@@ -1,0 +1,16 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+
+[[mods]]
+modId="handson_weavers_paradise_devtools"
+version="0.0.0"
+displayName="Hands-On Weavers Paradise dev tools"
+description='''Screenshots of the anvil station for development.'''
+
+[[dependencies.handson_weavers_paradise_devtools]]
+    modId="handson_weavers_paradise"
+    type="required"
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="CLIENT"
