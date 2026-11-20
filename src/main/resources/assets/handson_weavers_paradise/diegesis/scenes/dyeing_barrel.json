@@ -6,13 +6,13 @@
   "camera": {
     "position": [
       8,
-      35,
-      -15
+      29,
+      -19
     ],
     "target": [
       8,
-      15,
-      8
+      12.5,
+      7
     ],
     "fov": 42
   },
@@ -141,7 +141,7 @@
       "id": "dyed",
       "pos": [
         8,
-        18.4,
+        17.6,
         8
       ],
       "slot": {
@@ -239,13 +239,13 @@
       "id": "stencil_0",
       "pos": [
         11.6,
-        6,
-        -0.3
+        10.2,
+        -0.9
       ],
       "slot": {
         "slot": "stencils[0]",
         "display": "upright",
-        "size": 4.5,
+        "size": 5.2,
         "item_size": 4.5,
         "counts": "never",
         "idle_highlight": 0.2,
@@ -261,13 +261,13 @@
       "id": "stencil_1",
       "pos": [
         4.4,
-        6,
-        -0.3
+        10.2,
+        -0.9
       ],
       "slot": {
         "slot": "stencils[1]",
         "display": "upright",
-        "size": 4.5,
+        "size": 5.2,
         "item_size": 4.5,
         "counts": "never",
         "idle_highlight": 0.2,
@@ -283,7 +283,7 @@
       "id": "label",
       "pos": [
         8,
-        23.2,
+        21.4,
         8
       ],
       "pickable": false

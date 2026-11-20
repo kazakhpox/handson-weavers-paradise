@@ -148,6 +148,20 @@ public final class ShotDriver {
         }
         then("stir shot", 1, () -> shot("09_stirring"));
         then("release stir", 20, () -> button(GLFW.GLFW_RELEASE));
+        // The clothing taken away: the barrel hands its dye back, into the inventory.
+        then("empty barrel", 30, () -> fill(BARREL, ItemStack.EMPTY, 0, ItemStack.EMPTY, 1));
+        then("count dye", 5, () -> server(player -> {
+            int bottles = 0;
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                if (player.getInventory().getItem(i).is(spool("bottled_dye", 1).getItem())) {
+                    bottles += player.getInventory().getItem(i).getCount();
+                }
+            }
+            int loose = player.serverLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                    new net.minecraft.world.phys.AABB(BARREL).inflate(4)).size();
+            System.out.println("[shots] dye in inventory " + bottles + ", items on the ground " + loose);
+        }));
+        then("barrel after", 5, () -> shot("10_barrel_after"));
         then("quit", 5, () -> Minecraft.getInstance().stop());
     }
 

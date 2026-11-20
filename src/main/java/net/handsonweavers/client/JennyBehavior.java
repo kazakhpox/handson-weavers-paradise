@@ -106,7 +106,7 @@ public final class JennyBehavior implements StationBehavior {
             }
             winding = next;
             if (winding >= 0) {
-                view.node("spool_" + winding).ifPresent(node -> node.spin(0.0F, 0.0F, 540.0F));
+                view.node("spool_" + winding).ifPresent(node -> node.spin(0.0F, 540.0F, 0.0F));
             }
         }
         view.node("bar").ifPresent(node -> {

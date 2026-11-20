@@ -60,6 +60,7 @@ public final class LoomBehavior implements StationBehavior {
     private final float[] pressed = new float[4];
     private boolean shuttleLeft;
     private Item shownCloth;
+    private Item shownSpool;
 
     public LoomBehavior(StationView view) {
     }
@@ -85,6 +86,7 @@ public final class LoomBehavior implements StationBehavior {
     @Override
     public void onSceneReady(StationView view) {
         shownCloth = null;
+        shownSpool = null;
         view.node("label").ifPresent(node -> node.setPainter((pose, buffers, light) -> paintLabel(view, pose, buffers)));
         view.node("popup").ifPresent(node -> node.setPainter((pose, buffers, light) -> paintPopups(pose, buffers)));
         for (int i = 0; i < 4; i++) {
@@ -132,6 +134,14 @@ public final class LoomBehavior implements StationBehavior {
             });
         }
         view.node("shuttle").ifPresent(node -> node.setEnabled(!on));
+        // The shuttle carries the spools laid on the loom (or the ones being woven), an empty spool when there are none.
+        ItemStack warp = view.state().getItem(WARP_SLOT);
+        Item spool = !warp.isEmpty() ? warp.getItem() : on && clothSpool(view) != null ? clothSpool(view) : null;
+        if (spool != shownSpool) {
+            shownSpool = spool;
+            view.node("shuttle").ifPresent(node -> node.setVisual(spool == null ? null
+                    : Visual.ofItem(spool).withAnchor(new org.joml.Vector3f(8.0F, 8.0F, 8.0F))));
+        }
         // The cloth on the loom: what these spools weave, growing with the rows.
         Item cloth = clothOf(view);
         view.node("woven").ifPresent(node -> {
@@ -141,6 +151,13 @@ public final class LoomBehavior implements StationBehavior {
                 node.setVisual(Visual.ofItem(cloth));
             }
         });
+    }
+
+    /** The spools being woven. */
+    private static Item clothSpool(StationView view) {
+        String made = view.state().data().getString(WeaverStations.MADE);
+        ResourceLocation spool = made.isEmpty() ? null : ResourceLocation.tryParse(made);
+        return spool == null ? null : BuiltInRegistries.ITEM.getOptional(spool).orElse(null);
     }
 
     /** The cloth the spools being woven make: Weavers Paradise names its cloth after its spool. */
