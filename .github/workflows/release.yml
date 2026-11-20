@@ -1,0 +1,46 @@
+name: Release
+
+# Builds the mod and publishes a GitHub release with the jar: on a pushed tag such as v0.1.0, or when run by hand
+# (Actions > Release > Run workflow), which makes the tag v<mod_version> from gradle.properties itself.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build
+        run: ./gradlew build --no-configuration-cache
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            TAG="${GITHUB_REF_NAME}"
+          else
+            TAG="v$(grep '^mod_version=' gradle.properties | cut -d= -f2)"
+          fi
+          NAME="$(grep '^mod_name=' gradle.properties | cut -d= -f2)"
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "Release $TAG already exists"
+            exit 0
+          fi
+          gh release create "$TAG" build/libs/*.jar --target "${GITHUB_SHA}" \
+            --title "${NAME} ${TAG#v} (NeoForge 1.21.1)" \
+            --notes-file .github/release-notes.md
