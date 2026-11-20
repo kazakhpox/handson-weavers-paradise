@@ -25,9 +25,10 @@ world**, with no menu screen.
 
 - **Dyeing barrel**, worked as the cooking pot of Hands-On Delight. Drop the clothing into the bath and it floats there;
   stand bottled dye on the rim (the left for the front side, the right for the back of double-sided clothing) and the bath
-  takes its colour; hang the stencils on the barrel's front. Take the paddle by its handle and stir: the dye swirls round
-  after it. The dyed clothing rises over the barrel, dripping, and taking it uses a dose of each dye, as the mod's screen
-  does.
+  takes its colour; hang the stencils on the barrel's front. What the dye will make hovers over the barrel, see-through and
+  out of reach. Take the paddle by its handle and stir: the dye swirls round after it, the preview grows firmer, and after
+  a few rounds the dye takes: the clothing in the bath is dyed (a dose of each dye used, as the mod's screen uses it) and
+  is taken out of the bath.
 
 ## Requirements
 

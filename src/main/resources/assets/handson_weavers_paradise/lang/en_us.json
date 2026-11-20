@@ -16,5 +16,6 @@
   "handson_weavers_paradise.loom.take": "Take the %s (quality %s) beside the loom",
   "handson_weavers_paradise.barrel.clothing": "Drop clothing into the dye bath",
   "handson_weavers_paradise.barrel.dye": "Stand bottled dye on the rim: left for the front, right for the back",
-  "handson_weavers_paradise.barrel.take": "Take the dyed clothing"
+  "handson_weavers_paradise.barrel.take": "Dyed! Take the clothing from the bath",
+  "handson_weavers_paradise.barrel.stir": "Stir the bath with the paddle until the dye takes"
 }

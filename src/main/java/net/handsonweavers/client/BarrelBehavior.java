@@ -48,6 +48,10 @@ public final class BarrelBehavior implements StationBehavior {
     private float lastX = Float.NaN;
     private float lastZ = Float.NaN;
     private boolean hadDyed;
+    private float stirred;
+    private boolean sent;
+    private float sentAge;
+    private net.minecraft.world.item.Item previewItem;
 
     public BarrelBehavior(StationView view) {
     }
@@ -65,8 +69,11 @@ public final class BarrelBehavior implements StationBehavior {
     }
 
     private static String hint(StationView view) {
-        if (!view.state().getItem(WeaverStations.DYED_SLOT).isEmpty()) {
+        if (view.state().data().getBoolean(WeaverStations.FRESH)) {
             return "handson_weavers_paradise.barrel.take";
+        }
+        if (preview(view)) {
+            return "handson_weavers_paradise.barrel.stir";
         }
         if (view.state().getItem(WeaverStations.CLOTHING_SLOT).isEmpty()) {
             return "handson_weavers_paradise.barrel.clothing";
@@ -74,14 +81,18 @@ public final class BarrelBehavior implements StationBehavior {
         return "handson_weavers_paradise.barrel.dye";
     }
 
+    /** Whether the dye would make something of the clothing in the bath that is still to be stirred in. */
+    private static boolean preview(StationView view) {
+        return !view.state().getItem(WeaverStations.DYED_SLOT).isEmpty() && !view.state().data().getBoolean(WeaverStations.FRESH);
+    }
+
     @Override
     public void onStateChanged(StationView view, StationState.Changes changes) {
-        boolean dyed = !view.state().getItem(WeaverStations.DYED_SLOT).isEmpty();
-        if (dyed && !hadDyed) {
-            // The dye took: the clothing comes up out of the bath.
-            view.playSound(SoundEvents.BUCKET_FILL, "bath", 0.5F, 1.3F);
-            view.node("bath").ifPresent(node -> node.ripple(8.0F, 8.0F, 0.6F));
-            view.spawnParticles(DiegesisParticles.SPLASH, "dyed", 8, colour(view) | 0xFF000000);
+        boolean dyed = preview(view);
+        if (!dyed) {
+            stirred = 0.0F;
+            sent = false;
+            sentAge = 0.0F;
         }
         hadDyed = dyed;
         for (SlotRef dye : changes.slots()) {
@@ -97,8 +108,12 @@ public final class BarrelBehavior implements StationBehavior {
     @Override
     public void onEffect(StationView view, ResourceLocation effect, String node, CompoundTag data) {
         if (WeaverStations.EFFECT_DYED.equals(effect)) {
-            view.playSound(SoundEvents.GENERIC_SPLASH, "bath", 0.4F, 1.4F);
-            view.spawnParticles(DiegesisParticles.DROPLET, "dyed", 10, colour(view) | 0xFF000000);
+            view.playSound(SoundEvents.BUCKET_FILL, "bath", 0.6F, 1.3F);
+            view.node("bath").ifPresent(bath -> bath.ripple(8.0F, 8.0F, 0.7F));
+            view.spawnParticles(DiegesisParticles.SPLASH, "garment", 10, colour(view) | 0xFF000000);
+            view.spawnParticles(DiegesisParticles.GLINT, "garment", 6, 0xFFFFFFFF);
+            stirred = 0.0F;
+            sent = false;
         }
     }
 
@@ -140,14 +155,40 @@ public final class BarrelBehavior implements StationBehavior {
             node.moveTo(Mth.sin(t * 0.9F) * 0.25F, Mth.sin(t * 2.1F) * 0.12F, Mth.cos(t * 0.7F) * 0.25F, 0.0F);
             node.rotateTo(Mth.sin(t * 1.3F) * 4.0F, t * 8.0F % 360.0F, Mth.cos(t * 1.1F) * 4.0F, 0.0F);
         });
-        // The dyed clothing drips while it hangs over the barrel.
-        if (!view.state().getItem(WeaverStations.DYED_SLOT).isEmpty()) {
-            drip -= dt;
-            if (drip <= 0.0F) {
-                drip = 0.25F + 0.2F * (float) Math.random();
-                int drop = colour == 0 ? 0xFF6FA8DC : 0xFF000000 | colour;
-                view.node("dyed").ifPresent(node -> view.spawnParticles(DiegesisParticles.DROPLET,
-                        node.scenePosition().add(0.0F, -1.2F, 0.0F), new Vector3f(0.0F, -4.0F, 0.0F), 0.8F, 1, drop));
+        // What the dye will make hovers over the barrel, see-through, firmer the more the bath is stirred.
+        boolean shown = preview(view);
+        ItemStack result = view.state().getItem(WeaverStations.DYED_SLOT);
+        view.node("dyed").ifPresent(node -> {
+            node.setVisible(shown);
+            if (shown) {
+                if (result.getItem() != previewItem) {
+                    previewItem = result.getItem();
+                    node.setPainter((pose, buffers, light) -> {
+                        ItemStack stack = view.state().getItem(WeaverStations.DYED_SLOT);
+                        int alpha = (int) (70 + 130 * Mth.clamp(stirred, 0.0F, 1.0F));
+                        pose.pushPose();
+                        pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(view.age() * 40.0F % 360.0F));
+                        pose.scale(5.5F, 5.5F, 5.5F);
+                        net.minecraft.client.Minecraft.getInstance().getItemRenderer().renderStatic(stack,
+                                net.minecraft.world.item.ItemDisplayContext.FIXED, net.minecraft.client.renderer.LightTexture.FULL_BRIGHT,
+                                net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, pose,
+                                com.pockyl.diegesis.api.client.DiegesisClient.tinted(buffers, alpha << 24 | 0xFFFFFF), view.level(), 0);
+                        pose.popPose();
+                    });
+                }
+                node.moveTo(0.0F, Mth.sin(t * 2.0F) * 0.3F, 0.0F, 0.0F);
+            } else {
+                previewItem = null;
+                node.setPainter(null);
+            }
+        });
+        if (sent) {
+            // The server did not take it (stirred too soon after the clothing went in): stir on.
+            sentAge += dt;
+            if (sentAge > 2.0F) {
+                sent = false;
+                sentAge = 0.0F;
+                stirred = 0.6F;
             }
         }
         movePaddle(view, dt);
@@ -205,6 +246,14 @@ public final class BarrelBehavior implements StationBehavior {
         paddle.rotateTo(cursor.isPresent() ? -6.0F : -18.0F, 0.0F, cursor.isPresent() ? 0.0F : 16.0F, 0.15F);
         if (cursor.isPresent()) {
             stirring = Math.min(1.0F, stirring + speed * dt * 0.08F);
+            if (preview(view) && !sent) {
+                // A few good rounds of the bath and the dye takes: the server is told once.
+                stirred += Math.min(speed, 40.0F) * dt / 60.0F;
+                if (stirred >= 1.0F) {
+                    sent = true;
+                    view.sendAction(WeaverStations.ACTION_STIRRED, new CompoundTag());
+                }
+            }
             // Bath pixels: the bath node sits at the scene's origin.
             bath.leaveWake(paddleX, paddleZ, 1.1F, Mth.clamp(speed / 30.0F, 0.1F, 0.8F));
             bath.setFloatingObstacles(paddleX, paddleZ, 0.8F);

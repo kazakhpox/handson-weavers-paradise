@@ -16,5 +16,6 @@
   "handson_weavers_paradise.loom.take": "Заберите %s (качество %s) рядом со станком",
   "handson_weavers_paradise.barrel.clothing": "Опустите одежду в красильную ванну",
   "handson_weavers_paradise.barrel.dye": "Поставьте краску на обод: слева — лицо, справа — изнанка",
-  "handson_weavers_paradise.barrel.take": "Заберите окрашенную вещь"
+  "handson_weavers_paradise.barrel.take": "Готово! Заберите вещь из ванны",
+  "handson_weavers_paradise.barrel.stir": "Мешайте ванну веслом, пока краска не возьмётся"
 }

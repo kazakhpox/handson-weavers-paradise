@@ -26,10 +26,12 @@ import xox.labvorty.weaversparadise.items.stencil.Stencil;
 /**
  * The dyeing barrel. The block works out the dyed clothing by itself from what lies in it, as Weavers Paradise has it; the station
  * keeps the same rules for what goes where (stencils that fit the clothing, a back side only for double-sided clothing), and taking
- * the dyed clothing out of the bath uses the clothing and one dose of each dye on the sides it was dyed, as the mod's screen does.
+ * the dye shows over the barrel as a preview; stirring the bath dyes the clothing in it, using one dose of each dye on the sides
+ * it was dyed, as the mod's screen does, and the dyed clothing is taken out of the bath.
  */
 public final class BarrelLogic implements StationLogic {
     private final DyeingBarrelBlockEntity barrel;
+    private boolean dyeing;
 
     public BarrelLogic(StationContext station) {
         barrel = station.blockEntity() instanceof DyeingBarrelBlockEntity found ? found : null;
@@ -78,22 +80,58 @@ public final class BarrelLogic implements StationLogic {
     }
 
     @Override
-    public void onTaken(StationContext station, Player player, SlotRef slot, ItemStack stack) {
-        if (barrel == null || station.isClientSide() || !WeaverStations.DYED.equals(slot.group())) {
+    public boolean mayTake(StationContext station, Player player, SlotRef slot) {
+        // What the block works out is only shown over the barrel: the clothing is dyed by stirring, and taken from the bath.
+        return !WeaverStations.DYED.equals(slot.group());
+    }
+
+    @Override
+    public void onSlotChanged(StationContext station, SlotRef slot) {
+        if (dyeing || station.isClientSide() || !WeaverStations.CLOTHING.equals(slot.group())) {
+            return;
+        }
+        // Other clothing in the bath: it has yet to be stirred.
+        CompoundTag data = station.state().data();
+        if (data.contains(WeaverStations.FRESH) || data.contains(WeaverStations.LAID)) {
+            data.remove(WeaverStations.FRESH);
+        }
+        data.putLong(WeaverStations.LAID, station.level().getGameTime());
+        station.state().setData(data);
+    }
+
+    @Override
+    public void onCustomAction(StationContext station, Player player, String action, CompoundTag data) {
+        if (barrel == null || station.isClientSide() || !WeaverStations.ACTION_STIRRED.equals(action)) {
+            return;
+        }
+        CompoundTag state = station.state().data();
+        ItemStack dyed = barrel.getItem(1);
+        // Stirring takes a while: no dye takes in the moment the clothing went in.
+        if (dyed.isEmpty() || state.getBoolean(WeaverStations.FRESH)
+                || station.level().getGameTime() - state.getLong(WeaverStations.LAID) < 30) {
             return;
         }
         boolean front = isDye(barrel.getItem(4)) || isDye(barrel.getItem(5));
         boolean back = isDye(barrel.getItem(6)) || isDye(barrel.getItem(7));
-        barrel.setItem(0, ItemStack.EMPTY);
-        if (front) {
-            useDose(4);
-            useDose(5);
+        dyeing = true;
+        try {
+            // The clothing in the bath becomes the dyed clothing, and the dye is used as the mod's screen uses it.
+            barrel.setItem(0, dyed.copy());
+            barrel.setItem(1, ItemStack.EMPTY);
+            if (front) {
+                useDose(4);
+                useDose(5);
+            }
+            if (back) {
+                useDose(6);
+                useDose(7);
+            }
+            barrel.setChanged();
+        } finally {
+            dyeing = false;
         }
-        if (back) {
-            useDose(6);
-            useDose(7);
-        }
-        barrel.setChanged();
+        state.putBoolean(WeaverStations.FRESH, true);
+        station.state().setData(state);
         station.effect(WeaverStations.EFFECT_DYED, "bath", new CompoundTag());
     }
 

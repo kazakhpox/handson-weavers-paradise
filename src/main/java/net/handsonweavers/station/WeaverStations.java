@@ -103,6 +103,11 @@ public final class WeaverStations {
     public static final SlotRef CLOTHING_SLOT = SlotRef.of(CLOTHING, 0);
     public static final SlotRef DYED_SLOT = SlotRef.of(DYED, 0);
     public static final ResourceLocation EFFECT_DYED = HandsOnWeavers.id("dyed");
+    /** Action: the bath was stirred enough for the dye to take. */
+    public static final String ACTION_STIRRED = "stirred";
+    /** Data: the clothing in the bath is freshly dyed (no preview until it changes); the tick the clothing went in. */
+    public static final String FRESH = "fresh";
+    public static final String LAID = "laid";
 
     public static final StationSchema BARREL_SCHEMA = StationSchema.builder()
             .slots(CLOTHING, 1, SlotRules.DEFAULT.kept().maxStack(1))

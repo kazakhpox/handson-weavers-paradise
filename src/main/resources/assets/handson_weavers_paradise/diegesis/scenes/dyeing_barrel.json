@@ -137,21 +137,15 @@
       ]
     },
     {
-      "$comment": "The dyed clothing rises over the barrel to be taken.",
+      "$comment": "What the dye will make, shown see-through over the barrel; it cannot be taken: stirring dyes the clothing in the bath.",
       "id": "dyed",
       "pos": [
         8,
         17.6,
         8
       ],
-      "slot": {
-        "slot": "dyed[0]",
-        "display": "floating",
-        "size": 5,
-        "item_size": 5,
-        "counts": "never",
-        "count_facing": "camera"
-      }
+      "pickable": false,
+      "hidden": true
     },
     {
       "$comment": "The front side's dyes on the left rim, the back side's on the right.",

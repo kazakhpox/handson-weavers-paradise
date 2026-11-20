@@ -142,24 +142,20 @@ public final class ShotDriver {
         then("barrel shot", 5, () -> shot("08_barrel"));
         then("aim stir", 5, () -> aimAt(4.0F, 18.0F, 12.0F));
         then("press stir", 3, () -> button(GLFW.GLFW_PRESS));
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 70; i++) {
             float angle = i * 0.6F;
+            if (i == 15) {
+                then("preview shot", 1, () -> shot("09_stirring"));
+            }
             then("stir " + i, 2, () -> aimAt(8.0F + 3.5F * (float) Math.cos(angle), 14.7F, 8.0F + 3.5F * (float) Math.sin(angle)));
         }
-        then("stir shot", 1, () -> shot("09_stirring"));
+        then("stir shot", 1, () -> shot("09b_stirred"));
         then("release stir", 20, () -> button(GLFW.GLFW_RELEASE));
-        // The clothing taken away: the barrel hands its dye back, into the inventory.
-        then("empty barrel", 30, () -> fill(BARREL, ItemStack.EMPTY, 0, ItemStack.EMPTY, 1));
-        then("count dye", 5, () -> server(player -> {
-            int bottles = 0;
-            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-                if (player.getInventory().getItem(i).is(spool("bottled_dye", 1).getItem())) {
-                    bottles += player.getInventory().getItem(i).getCount();
-                }
+        then("check barrel", 5, () -> server(player -> {
+            if (player.level().getBlockEntity(BARREL) instanceof net.minecraft.world.Container barrel) {
+                System.out.println("[shots] in the bath " + barrel.getItem(0) + " " + barrel.getItem(0).getComponentsPatch()
+                        + " | preview " + barrel.getItem(1) + " | dye " + barrel.getItem(4).getComponentsPatch());
             }
-            int loose = player.serverLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
-                    new net.minecraft.world.phys.AABB(BARREL).inflate(4)).size();
-            System.out.println("[shots] dye in inventory " + bottles + ", items on the ground " + loose);
         }));
         then("barrel after", 5, () -> shot("10_barrel_after"));
         then("quit", 5, () -> Minecraft.getInstance().stop());
