@@ -220,21 +220,44 @@
       }
     },
     {
-      "id": "rack",
+      "$comment": "A spruce half slab under each column of the rack, at its own proportions.",
+      "id": "rack_0",
       "pos": [
-        8,
-        13.6,
-        15.4
+        11.2,
+        13.5,
+        14.6
       ],
       "pickable": false,
+      "scale": 0.19,
       "visual": {
         "block": "minecraft:spruce_slab[type=bottom]"
-      },
-      "scale": [
-        0.75,
-        0.12,
-        0.15
-      ]
+      }
+    },
+    {
+      "id": "rack_1",
+      "pos": [
+        8.0,
+        13.5,
+        14.6
+      ],
+      "pickable": false,
+      "scale": 0.19,
+      "visual": {
+        "block": "minecraft:spruce_slab[type=bottom]"
+      }
+    },
+    {
+      "id": "rack_2",
+      "pos": [
+        4.8,
+        13.5,
+        14.6
+      ],
+      "pickable": false,
+      "scale": 0.19,
+      "visual": {
+        "block": "minecraft:spruce_slab[type=bottom]"
+      }
     },
     {
       "id": "bottle",
@@ -301,9 +324,9 @@
     {
       "id": "result",
       "pos": [
-        8,
-        15.0,
-        3.6
+        -2.6,
+        14.5,
+        6
       ],
       "slot": {
         "slot": "result[0]",
@@ -312,7 +335,8 @@
         "item_size": 3.8,
         "counts": "hover",
         "count_facing": "camera"
-      }
+      },
+      "$comment": "The bottled dye hovers beside the table, clear of the core in the pot."
     },
     {
       "id": "pot",

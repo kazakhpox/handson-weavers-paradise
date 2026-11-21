@@ -17,7 +17,7 @@ world**, with no menu screen.
   across and the cloth on the loom grows. When the clock runs out, the cloth hovers beside the loom with the quality the
   rows earned, as Weavers Paradise reckons it.
 - **Dyemaking table.** The dyes stand in a rack of three by three behind the table, the empty bottle and the water at its
-  front corners, the dye core in the pot. When they make a dye the pot steams and the bottled dye hovers over the table;
+  front corners, the dye core in the pot. When they make a dye the pot steams and the bottled dye hovers beside the table;
   taking it uses up the ingredients as the mod's own screen does.
 - **Nothing replaced.** The items stay in the blocks' own inventories; the blocks keep working by themselves (the jenny
   spins, the clock of a weaving runs, hoppers reach them). Sneaking + use keeps the mod's own screens. The mod adds no
